@@ -5,11 +5,11 @@ import { useProductStore } from "@/stores/productStore";
 const productStore = useProductStore();
 
 onMounted(() => {
-  productStore.fetchProducts();
+  productStore.getProducts();
 });
 </script>
 <template>
-  <div class="grid grid-cols-3 gap-2">
+  <div v-if="productStore.loaded" class="grid grid-cols-3 gap-2">
     <router-link
       :to="`/product/${product.id}`"
       class="max-w-sm rounded overflow-hidden shadow-lg"
