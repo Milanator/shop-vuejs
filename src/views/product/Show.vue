@@ -1,0 +1,1 @@
+<template>Show product</template>
