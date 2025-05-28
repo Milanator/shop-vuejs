@@ -3,11 +3,11 @@ import { getFormData } from "@/utils";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export const useProductStore = defineStore("product", () => {
+export const useProductStore = defineStore("admin/product", () => {
   const loaded = ref<Boolean>(false);
   const errors = ref<string | undefined>(undefined);
 
-  const storeProduct = async (id = null) => {
+  const modifyProduct = async (id: Number | undefined = null) => {
     errors.value = undefined;
 
     try {
@@ -27,6 +27,6 @@ export const useProductStore = defineStore("product", () => {
   };
 
   return {
-    storeProduct,
+    modifyProduct,
   };
 });

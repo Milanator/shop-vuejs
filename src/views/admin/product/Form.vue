@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import { useProductStore } from "@/stores/admin/productStore";
+import { useProductStore as useAdminProductStore } from "@/stores/admin/productStore";
+import { useProductStore as useShopProductStore } from "@/stores/shop/productStore";
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 
-const productStore = useProductStore();
+const route = useRoute();
 
-const onSubmit = (event) => {
+const adminProductStore = useAdminProductStore();
+const shopProductStore = useShopProductStore();
+
+onMounted(() => {
+  shopProductStore.getProduct(Number(route.params.id));
+});
+
+const onSubmit = (event: Event) => {
   event.preventDefault();
 
-  productStore.storeProduct();
+  adminProductStore.modifyProduct(Number(route.params.id));
 };
 </script>
 <template>
-  <form id="form" method="POST" @submit="onSubmit">
+  <form
+    v-if="shopProductStore.loaded"
+    id="form"
+    method="POST"
+    @submit="onSubmit"
+  >
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
         Názov
@@ -20,6 +35,7 @@ const onSubmit = (event) => {
         id="title"
         type="text"
         name="title"
+        v-model="shopProductStore.product.title"
       />
     </div>
 
@@ -32,6 +48,7 @@ const onSubmit = (event) => {
         id="price"
         type="text"
         name="price"
+        v-model="shopProductStore.product.price"
       />
     </div>
 
@@ -44,6 +61,7 @@ const onSubmit = (event) => {
         id="image_url"
         type="text"
         name="image_url"
+        v-model="shopProductStore.product.image_url"
       />
     </div>
 

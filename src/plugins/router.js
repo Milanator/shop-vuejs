@@ -10,6 +10,12 @@ const routes = [
     name: "ProductCreate",
     component: AdminProductForm,
   },
+  // admin
+  {
+    path: "/admin/product/:id",
+    name: "ProductEdit",
+    component: AdminProductForm,
+  },
   // shop
   {
     path: "/product",
