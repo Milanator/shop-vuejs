@@ -1,8 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
-import ProductIndex from "@/views/product/Index.vue";
-import ProductShow from "@/views/product/Show.vue";
+import ProductIndex from "@/views/shop/product/Index.vue";
+import ProductShow from "@/views/shop/product/Show.vue";
+import AdminProductForm from "@/views/admin/product/Form.vue";
 
 const routes = [
+  // admin
+  {
+    path: "/admin/product/create",
+    name: "ProductCreate",
+    component: AdminProductForm,
+  },
+  // shop
   {
     path: "/product",
     name: "ProductIndex",

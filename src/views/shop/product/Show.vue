@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { useProductStore } from "@/stores/productStore";
+import { useProductStore } from "@/stores/shop/productStore";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
