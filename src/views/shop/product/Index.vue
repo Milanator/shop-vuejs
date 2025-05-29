@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AddToCart from "@/components/shop/AddToCart.vue";
 import { onMounted } from "vue";
 import { useProductStore } from "@/stores/shop/productStore";
 
@@ -29,12 +30,7 @@ onMounted(() => {
             >Detail</a
           >
           <!-- Add to cart -->
-          <button
-            type="button"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Pridať do košíka
-          </button>
+          <AddToCart :product="product" />
         </div>
       </div>
     </router-link>
