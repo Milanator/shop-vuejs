@@ -14,6 +14,13 @@
                 >
                   Produkty
                 </router-link>
+
+                <router-link
+                  :to="`/admin/product/create`"
+                  class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                >
+                  Pridať produkt
+                </router-link>
               </div>
             </div>
           </div>

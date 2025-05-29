@@ -2,21 +2,24 @@
 import { useProductStore as useAdminProductStore } from "@/stores/admin/productStore";
 import { useProductStore as useShopProductStore } from "@/stores/shop/productStore";
 import { onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 
 const adminProductStore = useAdminProductStore();
 const shopProductStore = useShopProductStore();
 
 onMounted(() => {
-  shopProductStore.getProduct(Number(route.params.id));
+  shopProductStore.getProduct(route.params.id);
 });
 
 const onSubmit = (event: Event) => {
   event.preventDefault();
 
-  adminProductStore.modifyProduct(Number(route.params.id));
+  adminProductStore
+    .modifyProduct(route.params.id)
+    .then(() => router.push({ name: "ProductIndex" }));
 };
 </script>
 <template>
@@ -63,6 +66,22 @@ const onSubmit = (event: Event) => {
         name="image_url"
         v-model="shopProductStore.product.image_url"
       />
+    </div>
+
+    <div class="mb-4">
+      <label
+        class="block text-gray-700 text-sm font-bold mb-2"
+        for="description"
+      >
+        Popis
+      </label>
+      <textarea
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="description"
+        type="text"
+        name="description"
+        v-model="shopProductStore.product.description"
+      ></textarea>
     </div>
 
     <div>

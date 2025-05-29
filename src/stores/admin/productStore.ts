@@ -7,7 +7,7 @@ export const useProductStore = defineStore("admin/product", () => {
   const loaded = ref<Boolean>(false);
   const errors = ref<string | undefined>(undefined);
 
-  const modifyProduct = async (id: Number | undefined = null) => {
+  const modifyProduct = async (id: string | undefined = undefined) => {
     errors.value = undefined;
 
     try {

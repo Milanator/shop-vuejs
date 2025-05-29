@@ -25,11 +25,13 @@ export const useProductStore = defineStore("shop/product", () => {
     }
   };
 
-  const getProduct = async (id: Number) => {
+  const getProduct = async (id: string | undefined = undefined) => {
     errors.value = undefined;
 
     try {
-      axios.get(`/product/${id}`).then((response: object) => {
+      const url = id ? `/product/${id}` : `/product`;
+
+      axios.get(url).then((response: object) => {
         product.value = response.data.data;
 
         loaded.value = true;

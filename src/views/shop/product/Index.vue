@@ -20,12 +20,22 @@ onMounted(() => {
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">{{ product.title }}</div>
         <p class="text-gray-700 text-base">{{ product.price }}€</p>
-        <button
-          type="button"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
-        >
-          Pridať do košíka
-        </button>
+
+        <div class="mt-2 flex justify-between">
+          <!-- Detail -->
+          <a
+            :href="`/product/${product.id}`"
+            class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+            >Detail</a
+          >
+          <!-- Add to cart -->
+          <button
+            type="button"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Pridať do košíka
+          </button>
+        </div>
       </div>
     </router-link>
   </div>
