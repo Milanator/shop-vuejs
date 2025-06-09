@@ -10,7 +10,7 @@ const router = useRouter();
 
 const productStore = useProductStore();
 
-const onDelete = (event) => {
+const onDelete = (event: Event) => {
   event.preventDefault();
 
   productStore

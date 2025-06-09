@@ -17,34 +17,53 @@ export const useCartStore = defineStore("shop/cart", () => {
       0
     );
 
+  const updateCart = (cartContent: Cart) => {
+    // total price sum
+    cartContent.totalPrice = getTotalPrice(cartContent);
+
+    // store to localstorage
+    setLocalStorage(LS_KEY, cartContent);
+
+    // update ref
+    setCart();
+  };
+
+  const setCart = () => {
+    cart.value = getLocalStorage(LS_KEY) || undefined;
+  };
+
   const addToCart = (product: Product) => {
-    const cart = getLocalStorage(LS_KEY) || { items: [], totalPrice: 0 };
+    const cartContent = getLocalStorage(LS_KEY) || { items: [], totalPrice: 0 };
 
     // find product
-    const itemIndex = cart.items.findIndex(
+    const itemIndex = cartContent.items.findIndex(
       (item: CartItem) => item.product.id === product.id
     );
 
     if (itemIndex > -1) {
       // existing product in cart
-      cart.items[itemIndex].quantity++;
+      cartContent.items[itemIndex].quantity++;
     } else {
       // product isnt in cart
-      cart.items.push({ product, quantity: 1 });
+      cartContent.items.push({ product, quantity: 1 });
     }
 
-    // total price sum
-    cart.totalPrice = getTotalPrice(cart);
-
-    setLocalStorage(LS_KEY, cart);
+    updateCart(cartContent);
   };
 
-  const setCart = () => {
-    cart.value = getLocalStorage(LS_KEY) || undefined
+  const deleteProductFromCart = (product: Product) => {
+    const cartContent = getLocalStorage(LS_KEY);
+
+    cartContent.items = cartContent.items.filter(
+      (item: CartItem) => item.product.id !== product.id
+    );
+
+    updateCart(cartContent);
   };
 
   return {
     addToCart,
+    deleteProductFromCart,
     setCart,
     cart,
   };

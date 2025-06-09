@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import type { CartItem } from "@/types/CartItemType.ts";
 import { useCartStore } from "@/stores/shop/cartStore";
 
 const cartStore = useCartStore();
@@ -7,6 +8,12 @@ const cartStore = useCartStore();
 onMounted(() => {
   cartStore.setCart();
 });
+
+const onDeleteCartItem = (event: Event, item: CartItem) => {
+  event.preventDefault();
+
+  cartStore.deleteProductFromCart(item.product);
+};
 </script>
 <template>
   <ul v-if="cartStore.cart">
@@ -20,14 +27,20 @@ onMounted(() => {
       </router-link>
 
       <input type="number" v-model="item.quantity" />
-      
+
       <router-link :to="`/product/${item.product.id}`" class="py-4 px-2">
         <div class="font-bold text-xl mb-2">{{ item.product.title }}</div>
         <p class="text-gray-700 text-base">{{ item.product.price }}€</p>
       </router-link>
 
       <div class="flex items-center justify-end">
-        <a href="#">X</a>
+        <button
+          type="button"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          @click="onDeleteCartItem($event, item)"
+        >
+          X
+        </button>
       </div>
     </li>
   </ul>

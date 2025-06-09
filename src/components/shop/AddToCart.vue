@@ -7,7 +7,7 @@ const props = defineProps({
 
 const cartStore = useCartStore();
 
-const addToCart = (event: any) => {
+const addToCart = (event: Event) => {
   event.preventDefault();
 
   cartStore.addToCart(props.product);
