@@ -4,7 +4,7 @@ import { ref } from "vue";
 import type { Product } from "@/types/ProductType";
 
 export const useProductStore = defineStore("shop/product", () => {
-  const product = ref<Product>(undefined);
+  const product = ref<Product | object>({});
   const products = ref<Product[]>([]);
   const loaded = ref<Boolean>(false);
   const errors = ref<string | undefined>(undefined);
@@ -29,17 +29,15 @@ export const useProductStore = defineStore("shop/product", () => {
     errors.value = undefined;
 
     try {
-      const url = id ? `/product/${id}` : `/product`;
-
-      axios.get(url).then((response: object) => {
-        product.value = response.data.data;
-
-        loaded.value = true;
-      });
+      if (id) {
+        axios.get(`/product/${id}`).then((response: object) => {
+          product.value = response.data.data;
+        });
+      }
     } catch (err: any) {
       errors.value = err.message || "Neznáma chyba";
     } finally {
-      loaded.value = false;
+      loaded.value = true;
     }
   };
 

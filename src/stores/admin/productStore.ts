@@ -17,12 +17,11 @@ export const useProductStore = defineStore("admin/product", () => {
 
       axios({ url, method, data }).then((response: object) => {
         console.log(response);
-        loaded.value = true;
       });
     } catch (err: any) {
       errors.value = err.message || "Neznáma chyba";
     } finally {
-      loaded.value = false;
+      loaded.value = true;
     }
   };
 

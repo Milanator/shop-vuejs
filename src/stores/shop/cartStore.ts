@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import { getLocalStorage, setLocalStorage } from "@/utils";
 import type { Product } from "@/types/ProductType";
-import { CartItem } from "@/types/CartItem";
-import { Cart } from "@/types/Cart";
+import type { CartItem } from "@/types/CartItem";
+import type { Cart } from "@/types/Cart";
 
 export const useCartStore = defineStore("shop/cart", () => {
   const LS_KEY = "cart";

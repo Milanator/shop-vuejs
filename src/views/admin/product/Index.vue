@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import AddToCart from "@/components/shop/AddToCart.vue";
 import { onMounted } from "vue";
 import { useProductStore } from "@/stores/shop/productStore";
 import DetailButton from "@/components/DetailButton.vue";
@@ -26,8 +25,13 @@ onMounted(() => {
         <div class="mt-2 flex justify-between items-start">
           <!-- Detail -->
           <DetailButton :product="product" />
-          <!-- Add to cart -->
-          <AddToCart :product="product" />
+          <!-- Edit -->
+          <router-link
+            :to="`/admin/product/${product.id}`"
+            class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Editácia
+          </router-link>
         </div>
       </div>
     </router-link>

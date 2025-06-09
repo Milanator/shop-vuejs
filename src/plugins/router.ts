@@ -2,18 +2,23 @@ import { createRouter, createWebHistory } from "vue-router";
 import ProductIndex from "@/views/shop/product/Index.vue";
 import ProductShow from "@/views/shop/product/Show.vue";
 import AdminProductForm from "@/views/admin/product/Form.vue";
+import AdminProductIndex from "@/views/admin/product/Index.vue";
 
 const routes = [
   // admin
   {
+    path: "/admin/product",
+    name: "AdminProductIndex",
+    component: AdminProductIndex,
+  },
+  {
     path: "/admin/product/create",
-    name: "ProductCreate",
+    name: "AdminProductCreate",
     component: AdminProductForm,
   },
-  // admin
   {
     path: "/admin/product/:id",
-    name: "ProductEdit",
+    name: "AdminProductEdit",
     component: AdminProductForm,
   },
   // shop

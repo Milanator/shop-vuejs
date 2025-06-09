@@ -7,14 +7,24 @@
             class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
           >
             <div class="hidden sm:ml-6 sm:block">
-              <div class="flex space-x-4">
+              <div class="flex flex-1 items-center space-x-2">
                 <router-link
                   :to="`/product`"
                   class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                 >
                   Produkty
                 </router-link>
-
+                <div
+                  class="inline-flex h-[20px] w-0.5 bg-neutral-100 mx-2"
+                ></div>
+                <!-- Listing -->
+                <router-link
+                  to="/admin/product"
+                  class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                >
+                  Produkty
+                </router-link>
+                <!-- Add product -->
                 <router-link
                   :to="`/admin/product/create`"
                   class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
