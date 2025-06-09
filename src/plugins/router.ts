@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import CartFirst from "@/views/shop/cart/First.vue";
 import ProductIndex from "@/views/shop/product/Index.vue";
 import ProductShow from "@/views/shop/product/Show.vue";
 import AdminProductForm from "@/views/admin/product/Form.vue";
@@ -32,6 +33,11 @@ const routes = [
     name: "ProductShow",
     component: ProductShow,
     props: true,
+  },
+  {
+    path: "/cart",
+    name: "CartFirst",
+    component: CartFirst,
   },
 ];
 

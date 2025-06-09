@@ -1,10 +1,13 @@
 import { defineStore } from "pinia";
 import { getLocalStorage, setLocalStorage } from "@/utils";
-import type { Product } from "@/types/ProductType";
-import type { CartItem } from "@/types/CartItem";
-import type { Cart } from "@/types/Cart";
+import type { Product } from "@/types/ProductType.ts";
+import type { CartItem } from "@/types/CartItemType.ts";
+import type { Cart } from "@/types/CartType.ts";
+import { ref } from "vue";
 
 export const useCartStore = defineStore("shop/cart", () => {
+  const cart = ref<Cart | undefined>(undefined);
+
   const LS_KEY = "cart";
 
   const getTotalPrice = (cart: Cart) =>
@@ -36,7 +39,13 @@ export const useCartStore = defineStore("shop/cart", () => {
     setLocalStorage(LS_KEY, cart);
   };
 
+  const setCart = () => {
+    cart.value = getLocalStorage(LS_KEY) || undefined
+  };
+
   return {
     addToCart,
+    setCart,
+    cart,
   };
 });

@@ -19,7 +19,7 @@ const onSubmit = (event: Event) => {
 
   adminProductStore
     .modifyProduct(route.params.id)
-    .then(() => router.push({ name: "ProductIndex" }));
+    .then(() => router.push({ name: "AdminProductIndex" }));
 };
 </script>
 <template>

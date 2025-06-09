@@ -25,7 +25,22 @@ export const useProductStore = defineStore("admin/product", () => {
     }
   };
 
+  const deleteProduct = async (id: string) => {
+    errors.value = undefined;
+
+    try {
+      axios.delete(`/product/${id}`).then((response: object) => {
+        console.log(response);
+      });
+    } catch (err: any) {
+      errors.value = err.message || "Neznáma chyba";
+    } finally {
+      loaded.value = true;
+    }
+  };
+
   return {
     modifyProduct,
+    deleteProduct
   };
 });

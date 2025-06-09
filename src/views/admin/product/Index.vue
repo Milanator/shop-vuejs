@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { useProductStore } from "@/stores/shop/productStore";
 import DetailButton from "@/components/DetailButton.vue";
+import DeleteButton from "@/components/admin/DeleteButton.vue";
 
 const productStore = useProductStore();
 
@@ -22,9 +23,11 @@ onMounted(() => {
         <div class="font-bold text-xl mb-2">{{ product.title }}</div>
         <p class="text-gray-700 text-base">{{ product.price }}€</p>
 
-        <div class="mt-2 flex justify-between items-start">
+        <div class="mt-2 flex justify-between items-start space-x-1">
           <!-- Detail -->
           <DetailButton :product="product" />
+          <!-- Delete -->
+          <DeleteButton :product="product" />
           <!-- Edit -->
           <router-link
             :to="`/admin/product/${product.id}`"
