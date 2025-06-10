@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import CartFirst from "@/views/shop/cart/First.vue";
 import ProductIndex from "@/views/shop/product/Index.vue";
 import ProductShow from "@/views/shop/product/Show.vue";
+import OrderSuccess from "@/views/shop/order/Success.vue";
 import AdminProductForm from "@/views/admin/product/Form.vue";
 import AdminProductIndex from "@/views/admin/product/Index.vue";
 
@@ -38,6 +39,11 @@ const routes = [
     path: "/cart",
     name: "CartFirst",
     component: CartFirst,
+  },
+  {
+    path: "/order/success",
+    name: "OrderSuccess",
+    component: OrderSuccess,
   },
 ];
 
