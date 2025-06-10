@@ -7,7 +7,7 @@ import DetailButton from "@/components/DetailButton.vue";
 const productStore = useProductStore();
 
 onMounted(() => {
-  productStore.getProducts();
+  productStore.setProducts();
 });
 </script>
 <template>

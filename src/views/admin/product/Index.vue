@@ -7,7 +7,7 @@ import DeleteButton from "@/components/admin/DeleteButton.vue";
 const productStore = useProductStore();
 
 onMounted(() => {
-  productStore.getProducts();
+  productStore.setProducts();
 });
 </script>
 <template>

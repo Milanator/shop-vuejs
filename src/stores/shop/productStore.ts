@@ -9,7 +9,7 @@ export const useProductStore = defineStore("shop/product", () => {
   const loaded = ref<Boolean>(false);
   const errors = ref<string | undefined>(undefined);
 
-  const getProducts = async () => {
+  const setProducts = async () => {
     errors.value = undefined;
 
     try {
@@ -47,6 +47,6 @@ export const useProductStore = defineStore("shop/product", () => {
     loaded,
     errors,
     getProduct,
-    getProducts,
+    setProducts,
   };
 });
