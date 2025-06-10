@@ -1,64 +1,56 @@
 import { defineStore } from "pinia";
-import { getLocalStorage, setLocalStorage } from "@/utils";
+import axios from "@/plugins/axios";
 import type { Product } from "@/types/ProductType.ts";
-import type { CartItem } from "@/types/CartItemType.ts";
 import type { Cart } from "@/types/CartType.ts";
 import { ref } from "vue";
 
 export const useCartStore = defineStore("shop/cart", () => {
   const cart = ref<Cart | undefined>(undefined);
-
-  const LS_KEY = "cart";
-
-  const getTotalPrice = (cart: Cart) =>
-    cart.items.reduce(
-      (sum: Number, item: CartItem) =>
-        +sum + +item.product.price * +item.quantity,
-      0
-    );
-
-  const updateCart = (cartContent: Cart) => {
-    // total price sum
-    cartContent.totalPrice = getTotalPrice(cartContent);
-
-    // store to localstorage
-    setLocalStorage(LS_KEY, cartContent);
-
-    // update ref
-    setCart();
-  };
+  const loaded = ref<Boolean>(false);
+  const errors = ref<string | undefined>(undefined);
 
   const setCart = () => {
-    cart.value = getLocalStorage(LS_KEY) || undefined;
-  };
+    errors.value = undefined;
 
-  const addToCart = (product: Product) => {
-    const cartContent = getLocalStorage(LS_KEY) || { items: [], totalPrice: 0 };
+    try {
+      axios.get(`/cart`).then((response: object) => {
+        cart.value = response.data.data;
 
-    // find product
-    const itemIndex = cartContent.items.findIndex(
-      (item: CartItem) => item.product.id === product.id
-    );
-
-    if (itemIndex > -1) {
-      // existing product in cart
-      cartContent.items[itemIndex].quantity++;
-    } else {
-      // product isnt in cart
-      cartContent.items.push({ product, quantity: 1 });
+        loaded.value = true;
+      });
+    } catch (err: any) {
+      errors.value = err.message || "Neznáma chyba";
     }
-
-    updateCart(cartContent);
   };
 
-  const deleteProductFromCart = (product: Product) => {
-    const cartContent = getLocalStorage(LS_KEY);
+  const addToCart = async (product: Product) => {
+    errors.value = undefined;
 
-    cartContent.items = cartContent.items.filter(
-      (item: CartItem) => item.product.id !== product.id
-    );
+    try {
+      return axios
+        .post(`/cart`, { product: product.id })
+        .then((response: object) => {
+          console.log(response.data);
+        });
+    } catch (err: any) {
+      errors.value = err.message || "Neznáma chyba";
+    } finally {
+      loaded.value = true;
+    }
+  };
 
-    updateCart(cartContent);
+  const deleteProductFromCart = async (product: Product) => {
+    errors.value = undefined;
+
+    try {
+      return axios.delete(`/cart/${product.id}`).then((response: object) => {
+        console.log(response.data);
+      });
+    } catch (err: any) {
+      errors.value = err.message || "Neznáma chyba";
+    } finally {
+      loaded.value = true;
+    }
   };
 
   return {
@@ -66,5 +58,6 @@ export const useCartStore = defineStore("shop/cart", () => {
     deleteProductFromCart,
     setCart,
     cart,
+    loaded,
   };
 });

@@ -56,15 +56,15 @@ const onSubmit = (event: Event) => {
     </div>
 
     <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="image_url">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="imageUrl">
         Obrázok URL
       </label>
       <input
         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id="image_url"
+        id="imageUrl"
         type="text"
-        name="image_url"
-        v-model="shopProductStore.product.image_url"
+        name="imageUrl"
+        v-model="shopProductStore.product.imageUrl"
       />
     </div>
 

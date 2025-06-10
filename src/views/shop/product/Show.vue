@@ -15,7 +15,7 @@ onMounted(() => {
 <template>
   <div v-if="productStore.loaded" class="grid grid-cols-2 gap-2">
     <div>
-      <img class="max-w-full" :src="productStore.product.image_url" />
+      <img class="max-w-full" :src="productStore.product.imageUrl" />
     </div>
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">{{ productStore.product.title }}</div>

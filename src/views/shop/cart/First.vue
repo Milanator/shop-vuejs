@@ -12,18 +12,19 @@ onMounted(() => {
 const onDeleteCartItem = (event: Event, item: CartItem) => {
   event.preventDefault();
 
-  cartStore.deleteProductFromCart(item.product);
+  cartStore.deleteProductFromCart(item.product).then(() => cartStore.setCart());
 };
 </script>
 <template>
-  <ul v-if="cartStore.cart">
+  <ul v-if="cartStore.loaded">
     <li
+      v-if="cartStore.cart.items.length"
       v-for="item in cartStore.cart.items"
       :key="item.product.id"
       class="grid grid-cols-4 px-6 py-4"
     >
       <router-link :to="`/product/${item.product.id}`">
-        <img class="max-w-full" :src="item.product.image_url" />
+        <img class="max-w-full" :src="item.product.imageUrl" />
       </router-link>
 
       <input type="number" v-model="item.quantity" />
@@ -43,5 +44,6 @@ const onDeleteCartItem = (event: Event, item: CartItem) => {
         </button>
       </div>
     </li>
+    <div v-else>Žiadne produkty v košíku</div>
   </ul>
 </template>
