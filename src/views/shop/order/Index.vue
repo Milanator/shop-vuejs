@@ -23,9 +23,9 @@ onMounted(() => {
 
         <div class="flex items-center justify-end">
           <ul>
-            <li v-for="item in order.products">
-              {{ item.product.title }}, {{ item.quantity }}ks,
-              {{ item.product.price }}
+            <li v-for="item in order.items">
+              {{ item.title }}, {{ item.quantity }}ks,
+              {{ item.price }}
             </li>
           </ul>
         </div>
