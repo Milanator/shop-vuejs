@@ -13,7 +13,9 @@ onMounted(() => {
 const onDeleteCartItem = (event: Event, item: CartItem) => {
   event.preventDefault();
 
-  cartStore.deleteProductFromCart(item.product).then(() => cartStore.setCart());
+  cartStore
+    .deleteProductFromCart(item.productId)
+    .then(() => cartStore.setCart());
 };
 </script>
 <template>
@@ -21,18 +23,18 @@ const onDeleteCartItem = (event: Event, item: CartItem) => {
     <ul>
       <li
         v-for="item in cartStore.cart.items"
-        :key="item.product._id"
+        :key="item.productId._id"
         class="grid grid-cols-4 px-6 py-4"
       >
-        <router-link :to="`/product/${item.product._id}`">
-          <img class="max-w-full" :src="item.product.imageUrl" />
+        <router-link :to="`/product/${item.productId._id}`">
+          <img class="max-w-full" :src="item.productId.imageUrl" />
         </router-link>
 
         <input type="number" v-model="item.quantity" />
 
-        <router-link :to="`/product/${item.product._id}`" class="py-4 px-2">
-          <div class="font-bold text-xl mb-2">{{ item.product.title }}</div>
-          <p class="text-gray-700 text-base">{{ item.product.price }}€</p>
+        <router-link :to="`/product/${item.productId._id}`" class="py-4 px-2">
+          <div class="font-bold text-xl mb-2">{{ item.productId.title }}</div>
+          <p class="text-gray-700 text-base">{{ item.productId.price }}€</p>
         </router-link>
 
         <div class="flex items-center justify-end">
