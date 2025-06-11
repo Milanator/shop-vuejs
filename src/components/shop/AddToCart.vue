@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/shop/cartStore";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   product: Object,
@@ -7,10 +8,15 @@ const props = defineProps({
 
 const cartStore = useCartStore();
 
+const router = useRouter();
+
 const addToCart = (event: Event) => {
   event.preventDefault();
 
-  cartStore.addToCart(props.product);
+  cartStore.addToCart(props.product).then(() => {
+    // redirect to cart
+    router.push({ name: "CartFirst" });
+  });
 };
 </script>
 <template>

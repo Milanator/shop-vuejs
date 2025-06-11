@@ -37,7 +37,7 @@ export const useCartStore = defineStore("shop/cart", () => {
 
     // find product
     const itemIndex = cartContent.items.findIndex(
-      (item: CartItem) => item.product.id === product.id
+      (item: CartItem) => item.product._id === product._id
     );
 
     if (itemIndex > -1) {
@@ -55,7 +55,7 @@ export const useCartStore = defineStore("shop/cart", () => {
     const cartContent = getLocalStorage(LS_KEY);
 
     cartContent.items = cartContent.items.filter(
-      (item: CartItem) => item.product.id !== product.id
+      (item: CartItem) => item.product._id !== product._id
     );
 
     updateCart(cartContent);

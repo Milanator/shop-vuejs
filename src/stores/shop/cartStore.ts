@@ -28,7 +28,7 @@ export const useCartStore = defineStore("shop/cart", () => {
 
     try {
       return axios
-        .post(`/cart`, { product: product.id })
+        .post(`/cart`, { product: product._id })
         .then((response: object) => {
           console.log(response.data);
         });
@@ -43,7 +43,7 @@ export const useCartStore = defineStore("shop/cart", () => {
     errors.value = undefined;
 
     try {
-      return axios.delete(`/cart/${product.id}`).then((response: object) => {
+      return axios.delete(`/cart/${product._id}`).then((response: object) => {
         console.log(response.data);
       });
     } catch (err: any) {

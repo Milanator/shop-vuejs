@@ -14,7 +14,7 @@ const onDelete = (event: Event) => {
   event.preventDefault();
 
   productStore
-    .deleteProduct(props.product.id)
+    .deleteProduct(props.product._id)
     // .then(()=> {}) // delete from cart
     .then(() => router.go(0));
 };

@@ -13,10 +13,10 @@ onMounted(() => {
 <template>
   <div v-if="productStore.loaded" class="grid grid-cols-3 gap-2">
     <router-link
-      :to="`/product/${product.id}`"
-      class="max-w-sm rounded overflow-hidden shadow-lg"
       v-for="product in productStore.products"
-      :key="product.id"
+      :key="product._id"
+      :to="`/product/${product._id}`"
+      class="max-w-sm rounded overflow-hidden shadow-lg"
     >
       <img class="max-w-full" :src="product.imageUrl" />
       <div class="px-6 py-4">
@@ -30,7 +30,7 @@ onMounted(() => {
           <DeleteButton :product="product" />
           <!-- Edit -->
           <router-link
-            :to="`/admin/product/${product.id}`"
+            :to="`/admin/product/${product._id}`"
             class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
           >
             Editácia

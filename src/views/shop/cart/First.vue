@@ -21,16 +21,16 @@ const onDeleteCartItem = (event: Event, item: CartItem) => {
     <ul>
       <li
         v-for="item in cartStore.cart.items"
-        :key="item.product.id"
+        :key="item.product._id"
         class="grid grid-cols-4 px-6 py-4"
       >
-        <router-link :to="`/product/${item.product.id}`">
+        <router-link :to="`/product/${item.product._id}`">
           <img class="max-w-full" :src="item.product.imageUrl" />
         </router-link>
 
         <input type="number" v-model="item.quantity" />
 
-        <router-link :to="`/product/${item.product.id}`" class="py-4 px-2">
+        <router-link :to="`/product/${item.product._id}`" class="py-4 px-2">
           <div class="font-bold text-xl mb-2">{{ item.product.title }}</div>
           <p class="text-gray-700 text-base">{{ item.product.price }}€</p>
         </router-link>
