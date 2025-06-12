@@ -7,8 +7,24 @@ export const useAuthStore = defineStore("admin/auth", () => {
   const errors = ref<string | undefined>(undefined);
   const email = ref<String>(undefined);
   const password = ref<String>(undefined);
+  const user = ref<object | undefined>(undefined);
 
-  const login = async (id: string) => {
+  const setAuthUser = async () => {
+    errors.value = undefined;
+
+    try {
+      axios.get(`/auth/user`).then((response: object) => {
+        console.log(response);
+        user.value = response.data.data;
+
+        loaded.value = true;
+      });
+    } catch (err: any) {
+      errors.value = err.message || "Neznáma chyba";
+    }
+  };
+
+  const login = async () => {
     errors.value = undefined;
 
     try {
@@ -19,9 +35,24 @@ export const useAuthStore = defineStore("admin/auth", () => {
         })
         .then((response: object) => {
           console.log(response);
+          user.value = response.data.data;
 
           loaded.value = true;
         });
+    } catch (err: any) {
+      errors.value = err.message || "Neznáma chyba";
+    }
+  };
+
+  const logout = async () => {
+    errors.value = undefined;
+
+    try {
+      axios.post(`/auth/logout`).then((response: object) => {
+        user.value = undefined;
+
+        loaded.value = true;
+      });
     } catch (err: any) {
       errors.value = err.message || "Neznáma chyba";
     }
@@ -31,5 +62,8 @@ export const useAuthStore = defineStore("admin/auth", () => {
     email,
     password,
     login,
+    logout,
+    setAuthUser,
+    user,
   };
 });

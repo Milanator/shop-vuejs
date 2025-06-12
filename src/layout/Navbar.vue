@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth/authStore";
+
+const authStore = useAuthStore();
+
+const onLogout = (event: Event) => {
+  event.preventDefault();
+
+  authStore.logout();
+};
+</script>
 <template>
   <header>
     <nav class="bg-gray-800">
@@ -52,11 +63,22 @@
 
                 <div class="flex space-x-2">
                   <router-link
+                    v-if="!authStore.user"
                     to="/login"
                     class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                   >
                     Prihlásiť sa
                   </router-link>
+
+                  <template v-else>
+                    <span class="flex items-center px-2 text-white">{{ authStore.user.name }}</span>
+                    <a
+                      class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                      @click="onLogout"
+                    >
+                      Odhlásiť sa
+                    </a>
+                  </template>
                 </div>
               </div>
             </div>
