@@ -2,10 +2,9 @@
 import { useProductStore as useAdminProductStore } from "@/stores/admin/productStore";
 import { useProductStore as useShopProductStore } from "@/stores/shop/productStore";
 import { onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 const route = useRoute();
-const router = useRouter();
 
 const adminProductStore = useAdminProductStore();
 const shopProductStore = useShopProductStore();
@@ -17,9 +16,7 @@ onMounted(() => {
 const onSubmit = (event: Event) => {
   event.preventDefault();
 
-  adminProductStore
-    .modifyProduct(route.params.id)
-    .then(() => router.push({ name: "AdminProductIndex" }));
+  adminProductStore.modifyProduct(route.params.id);
 };
 </script>
 <template>

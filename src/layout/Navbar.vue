@@ -62,16 +62,25 @@ const onLogout = (event: Event) => {
                 </div>
 
                 <div class="flex space-x-2">
-                  <router-link
-                    v-if="!authStore.user"
-                    to="/login"
-                    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                  >
-                    Prihlásiť sa
-                  </router-link>
+                  <template v-if="!authStore.user">
+                    <router-link
+                      to="/login"
+                      class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                    >
+                      Prihlásiť sa
+                    </router-link>
+                    <router-link
+                      to="/register"
+                      class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                    >
+                      Registrácia
+                    </router-link>
+                  </template>
 
                   <template v-else>
-                    <span class="flex items-center px-2 text-white">{{ authStore.user.name }}</span>
+                    <span class="flex items-center px-2 text-white">{{
+                      authStore.user.name
+                    }}</span>
                     <a
                       class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                       @click="onLogout"

@@ -10,19 +10,19 @@ export const useProductStore = defineStore("admin/product", () => {
   const modifyProduct = async (id: string | undefined = undefined) => {
     errors.value = undefined;
 
-    try {
-      const url = id ? `/product/${id}` : `/product`;
-      const method = id ? "PUT" : "POST";
-      const data = getFormData("form", id);
+    const url = id ? `/product/${id}` : `/product`;
+    const method = id ? "PUT" : "POST";
+    const data = getFormData("form", id);
 
-      axios({ url, method, data }).then((response: object) => {
+    return axios({ url, method, data })
+      .then((response: object) => {
         console.log(response);
-      });
-    } catch (err: any) {
-      errors.value = err.message || "Neznáma chyba";
-    } finally {
-      loaded.value = true;
-    }
+
+        loaded.value = true;
+      })
+      .catch(
+        (exception) => (errors.value = exception.message || "Neznáma chyba")
+      );
   };
 
   const deleteProduct = async (id: string) => {
@@ -41,6 +41,6 @@ export const useProductStore = defineStore("admin/product", () => {
 
   return {
     modifyProduct,
-    deleteProduct
+    deleteProduct,
   };
 });
