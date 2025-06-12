@@ -6,6 +6,7 @@ import OrderSuccess from "@/views/shop/order/Success.vue";
 import OrderIndex from "@/views/shop/order/Index.vue";
 import AdminProductForm from "@/views/admin/product/Form.vue";
 import AdminProductIndex from "@/views/admin/product/Index.vue";
+import Login from "@/views/auth/Login.vue";
 
 const routes = [
   // admin
@@ -50,6 +51,12 @@ const routes = [
     path: "/order",
     name: "OrderIndex",
     component: OrderIndex,
+  },
+  // auth
+   {
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
 ];
 

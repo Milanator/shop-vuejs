@@ -9,7 +9,7 @@
             <div class="w-full">
               <div class="flex flex-1 items-center justify-between space-x-2">
                 <!-- Shop -->
-                <div class="flex space-x-2">
+                <div class="flex items-center space-x-2">
                   <router-link
                     :to="`/product`"
                     class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
@@ -24,13 +24,16 @@
                   </router-link>
                   <router-link
                     :to="`/order`"
-                    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white mr-0"
                   >
                     Objednávky
                   </router-link>
-                </div>
-                <!-- Admin -->
-                <div class="flex space-x-2">
+
+                  <div
+                    class="inline-block h-[1.5rem] w-0.5 bg-neutral-100 mx-4"
+                  ></div>
+
+                  <!-- Admin -->
                   <!-- Listing -->
                   <router-link
                     to="/admin/product"
@@ -44,6 +47,15 @@
                     class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                   >
                     Pridať produkt
+                  </router-link>
+                </div>
+
+                <div class="flex space-x-2">
+                  <router-link
+                    to="/login"
+                    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                  >
+                    Prihlásiť sa
                   </router-link>
                 </div>
               </div>
