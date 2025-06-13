@@ -2,10 +2,13 @@ import axios from "@/plugins/axios";
 import { getFormData } from "@/utils.ts";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useAppStore } from "./../appStore";
 
 export const useProductStore = defineStore("admin/product", () => {
   const loaded = ref<Boolean>(false);
   const errors = ref<string | undefined>(undefined);
+
+  const appStore = useAppStore();
 
   const modifyProduct = async (id: string | undefined = undefined) => {
     errors.value = undefined;
@@ -20,24 +23,20 @@ export const useProductStore = defineStore("admin/product", () => {
 
         loaded.value = true;
       })
-      .catch(
-        (exception) => (errors.value = exception.message || "Neznáma chyba")
+      .catch((exception) =>
+        appStore.setDangerFlashMessage(exception.response.data.message)
       );
   };
 
-  const deleteProduct = async (id: string) => {
-    errors.value = undefined;
-
-    try {
-      axios.delete(`/product/${id}`).then((response: object) => {
+  const deleteProduct = async (id: string) =>
+    axios
+      .delete(`/product/${id}`)
+      .then((response: object) => {
         console.log(response);
-      });
-    } catch (err: any) {
-      errors.value = err.message || "Neznáma chyba";
-    } finally {
-      loaded.value = true;
-    }
-  };
+      })
+      .catch((exception) =>
+        appStore.setDangerFlashMessage(exception.response.data.message)
+      );
 
   return {
     modifyProduct,

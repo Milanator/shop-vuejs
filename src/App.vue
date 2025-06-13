@@ -16,7 +16,7 @@ onMounted(() => {
   <main class="p-6 max-w-5xl mx-auto">
     <div
       v-for="flashMessage in appStore.flashMessages"
-      class="border px-4 py-3 rounded relative"
+      class="border px-4 py-3 rounded relative mb-4"
       :class="{
         'bg-green-100': flashMessage.type === 'success',
         'border-green-400': flashMessage.type === 'success',
@@ -29,7 +29,10 @@ onMounted(() => {
     >
       <span class="block sm:inline">{{ flashMessage.text }}</span>
 
-      <span class="absolute top-0 bottom-0 right-0 px-4 py-3" @click="appStore.forgetFlashMessages">
+      <span
+        class="absolute top-0 bottom-0 right-0 px-4 py-3"
+        @click="appStore.forgetFlashMessages"
+      >
         <svg
           class="fill-current h-6 w-6"
           role="button"
