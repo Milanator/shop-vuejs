@@ -8,6 +8,8 @@ import AdminProductForm from "@/views/admin/product/Form.vue";
 import AdminProductIndex from "@/views/admin/product/Index.vue";
 import Login from "@/views/auth/Login.vue";
 import Register from "@/views/auth/Register.vue";
+import ResetPasswordRequest from "@/views/auth/ResetPasswordRequest.vue";
+import ResetPasswordNew from "@/views/auth/ResetPasswordNew.vue";
 import { useAuthStore } from "@/stores/auth/authStore";
 
 const routes = [
@@ -65,6 +67,16 @@ const routes = [
     name: "Register",
     component: Register,
   },
+  {
+    path: "/reset-password/request",
+    name: "ResetPasswordRequest",
+    component: ResetPasswordRequest,
+  },
+  {
+    path: "/reset-password/new",
+    name: "ResetPasswordNew",
+    component: ResetPasswordNew,
+  },
 ];
 
 const router = createRouter({
@@ -76,7 +88,7 @@ router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
   if (!authStore.getLocalAuthUser() && to.path.includes("/admin")) {
-    return next({ name: 'Login' })
+    return next({ name: "Login" });
   } else {
     return next();
   }

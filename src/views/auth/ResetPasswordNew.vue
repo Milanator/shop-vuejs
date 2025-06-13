@@ -6,35 +6,19 @@ const authStore = useAuthStore();
 const onSubmit = (event: Event) => {
   event.preventDefault();
 
-  authStore.login();
+  authStore.resetPasswordNew();
 };
 </script>
 <template>
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-        Prihlásenie
+        Reset hesla
       </h2>
     </div>
 
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" action="#" method="POST" @submit="onSubmit">
-        <div>
-          <label for="email" class="block text-sm/6 font-medium text-gray-900"
-            >Email</label
-          >
-          <div class="mt-2">
-            <input
-              type="email"
-              name="email"
-              id="email"
-              autocomplete="email"
-              class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-              v-model="authStore.email"
-            />
-          </div>
-        </div>
-
         <div>
           <div class="flex items-center justify-between">
             <label
@@ -57,7 +41,7 @@ const onSubmit = (event: Event) => {
 
         <div class="text-sm">
           <router-link
-            to="/reset-password/request"
+            to="/reset-password"
             class="font-semibold text-indigo-600 hover:text-indigo-500"
           >
             Zabudol si heslo?

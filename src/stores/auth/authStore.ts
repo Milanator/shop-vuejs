@@ -88,24 +88,66 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
-  const register = () => {
+  const register = (): Promise<void> => {
     clearErrors();
 
-    try {
-      axios
-        .post(`/auth/register`, {
-          email: email.value,
-          password: password.value,
-          password_confirmation: password_confirmation.value,
-        })
-        .then((response: object) => {
-          userCallback(response.data.data);
+    return axios
+      .post(`/auth/register`, {
+        email: email.value,
+        password: password.value,
+        password_confirmation: password_confirmation.value,
+      })
+      .then((response: object) => {
+        userCallback(undefined);
 
-          router.push({ name: "Login" });
-        });
-    } catch (err: any) {
-      errors.value = err.message || "Neznáma chyba";
-    }
+        appStore.setSuccessFlashMessage("Registrácia prebehla úspešne.");
+
+        router.push({ name: "Login" });
+      })
+      .catch((exception) => {
+        errors.value = exception.message || "Neznáma chyba";
+      });
+  };
+
+  const resetPasswordRequest = (): Promise<void> => {
+    clearErrors();
+
+    return axios
+      .post(`/auth/reset-password/request`, {
+        email: email.value,
+      })
+      .then((response: object) => {
+        userCallback(undefined);
+
+        appStore.setSuccessFlashMessage(
+          "Na email Vám prišiel link pre zresetovanie hesla."
+        );
+
+        router.push({ name: "Login" });
+      })
+      .catch((exception) => {
+        errors.value = exception.message || "Neznáma chyba";
+      });
+  };
+
+  const resetPasswordNew = (): Promise<void> => {
+    clearErrors();
+
+    return axios
+      .post(`/auth/reset-password/new`, {
+        password: password.value,
+        password_confirmation: password_confirmation.value,
+      })
+      .then((response: object) => {
+        userCallback(undefined);
+
+        appStore.setSuccessFlashMessage("Reset hesla prebehol úspešne.");
+
+        router.push({ name: "Login" });
+      })
+      .catch((exception) => {
+        errors.value = exception.message || "Neznáma chyba";
+      });
   };
 
   return {
@@ -116,6 +158,8 @@ export const useAuthStore = defineStore("auth", () => {
     login,
     logout,
     register,
+    resetPasswordRequest,
+    resetPasswordNew,
     setAuthUser,
     getLocalAuthUser,
     user,
