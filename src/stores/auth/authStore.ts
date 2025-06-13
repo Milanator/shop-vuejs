@@ -2,19 +2,22 @@ import axios from "@/plugins/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useAppStore } from "../appStore";
 
-export const useAuthStore = defineStore("admin/auth", () => {
+export const useAuthStore = defineStore("auth", () => {
   const loaded = ref<Boolean>(false);
   const errors = ref<string | undefined>(undefined);
   const email = ref<String>(undefined);
   const password = ref<String>(undefined);
   const password_confirmation = ref<String>(undefined);
   const user = ref<object | undefined>(undefined);
-  const isAuth = ref<Boolean>(false)
+  const isAuth = ref<Boolean>(false);
 
   const LS_KEY = "authUser";
 
   const router = useRouter();
+
+  const appStore = useAppStore();
 
   const clearErrors = () => (errors.value = undefined);
 
@@ -23,7 +26,7 @@ export const useAuthStore = defineStore("admin/auth", () => {
 
     localStorage.setItem(LS_KEY, data ? JSON.stringify(data) : "");
 
-    isAuth.value = !!data 
+    isAuth.value = !!data;
 
     user.value = data;
 
@@ -60,6 +63,8 @@ export const useAuthStore = defineStore("admin/auth", () => {
         .then((response: object) => {
           userCallback(response.data.data);
 
+          appStore.setSuccessFlashMessage("Prihlásený");
+
           router.push({ name: "AdminProductIndex" });
         });
     } catch (err: any) {
@@ -73,6 +78,8 @@ export const useAuthStore = defineStore("admin/auth", () => {
     try {
       axios.post(`/auth/logout`).then((response: object) => {
         userCallback(undefined);
+
+        appStore.setSuccessFlashMessage("Odhlásený");
 
         router.push({ name: "Login" });
       });
