@@ -2,15 +2,12 @@ import axios from "@/plugins/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { Product } from "@/types/ProductType";
-import { useRouter } from "vue-router";
 
 export const useProductStore = defineStore("shop/product", () => {
   const product = ref<Product | object>({});
   const products = ref<Product[]>([]);
   const loaded = ref<Boolean>(false);
   const errors = ref<string | undefined>(undefined);
-
-  const router = useRouter();
 
   const setProducts = async () => {
     errors.value = undefined;
@@ -20,8 +17,6 @@ export const useProductStore = defineStore("shop/product", () => {
         products.value = response.data.data;
 
         loaded.value = true;
-
-        router.push({ name: "AdminProductIndex" });
       });
     } catch (err: any) {
       errors.value = err.message || "Neznáma chyba";

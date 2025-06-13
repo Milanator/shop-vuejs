@@ -10,6 +10,9 @@ export const useAuthStore = defineStore("admin/auth", () => {
   const password = ref<String>(undefined);
   const password_confirmation = ref<String>(undefined);
   const user = ref<object | undefined>(undefined);
+  const isAuth = ref<Boolean>(false)
+
+  const LS_KEY = "authUser";
 
   const router = useRouter();
 
@@ -18,9 +21,19 @@ export const useAuthStore = defineStore("admin/auth", () => {
   const userCallback = (data: object | undefined) => {
     console.log(data);
 
+    localStorage.setItem(LS_KEY, data ? JSON.stringify(data) : "");
+
+    isAuth.value = !!data 
+
     user.value = data;
 
     loaded.value = true;
+  };
+
+  const getLocalAuthUser = () => {
+    const data = localStorage.getItem(LS_KEY);
+
+    return data ? JSON.parse(data) : undefined;
   };
 
   const setAuthUser = async () => {
@@ -89,6 +102,7 @@ export const useAuthStore = defineStore("admin/auth", () => {
   };
 
   return {
+    isAuth,
     email,
     password_confirmation,
     password,
@@ -96,6 +110,7 @@ export const useAuthStore = defineStore("admin/auth", () => {
     logout,
     register,
     setAuthUser,
+    getLocalAuthUser,
     user,
   };
 });

@@ -47,6 +47,7 @@ const onLogout = (event: Event) => {
                   <!-- Admin -->
                   <!-- Listing -->
                   <router-link
+                    v-if="authStore.isAuth"
                     to="/admin/product"
                     class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                   >
@@ -54,6 +55,7 @@ const onLogout = (event: Event) => {
                   </router-link>
                   <!-- Add product -->
                   <router-link
+                    v-if="authStore.isAuth"
                     :to="`/admin/product/create`"
                     class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                   >
@@ -62,7 +64,7 @@ const onLogout = (event: Event) => {
                 </div>
 
                 <div class="flex space-x-2">
-                  <template v-if="!authStore.user">
+                  <template v-if="!authStore.isAuth">
                     <router-link
                       to="/login"
                       class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"

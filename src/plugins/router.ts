@@ -8,6 +8,7 @@ import AdminProductForm from "@/views/admin/product/Form.vue";
 import AdminProductIndex from "@/views/admin/product/Index.vue";
 import Login from "@/views/auth/Login.vue";
 import Register from "@/views/auth/Register.vue";
+import { useAuthStore } from "@/stores/auth/authStore";
 
 const routes = [
   // admin
@@ -69,6 +70,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+  if (!authStore.getLocalAuthUser() && to.path.includes("/admin")) {
+    return next({ name: 'Login' })
+  } else {
+    return next();
+  }
 });
 
 export default router;
