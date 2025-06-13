@@ -41,6 +41,7 @@ const onLogout = (event: Event) => {
                   </router-link>
 
                   <div
+                    v-if="authStore.isAuth"
                     class="inline-block h-[1.5rem] w-0.5 bg-neutral-100 mx-4"
                   ></div>
 
@@ -80,9 +81,9 @@ const onLogout = (event: Event) => {
                   </template>
 
                   <template v-else>
-                    <span class="flex items-center px-2 text-white">{{
-                      authStore.user.name
-                    }}</span>
+                    <span class="flex items-center px-2 text-white">
+                      {{ authStore.user.name }}
+                    </span>
                     <a
                       class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                       @click="onLogout"

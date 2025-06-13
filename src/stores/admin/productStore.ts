@@ -1,5 +1,5 @@
 import axios from "@/plugins/axios";
-import { getFormData } from "@/utils";
+import { getFormData } from "@/utils.ts";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 

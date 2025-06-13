@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getLocalStorage, setLocalStorage } from "@/utils";
+import { getLocalStorage, setLocalStorage } from "@/utils.ts";
 import type { Product } from "@/types/ProductType.ts";
 import type { CartItem } from "@/types/CartItemType.ts";
 import type { Cart } from "@/types/CartType.ts";

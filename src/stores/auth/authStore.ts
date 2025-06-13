@@ -2,11 +2,11 @@ import axios from "@/plugins/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useAppStore } from "../appStore";
+import { useAppStore } from "./../appStore";
+import { getLocalStorage, getQueryParam, setLocalStorage } from "@/utils.ts";
 
 export const useAuthStore = defineStore("auth", () => {
   const loaded = ref<Boolean>(false);
-  const errors = ref<string | undefined>(undefined);
   const email = ref<String>(undefined);
   const password = ref<String>(undefined);
   const password_confirmation = ref<String>(undefined);
@@ -19,12 +19,12 @@ export const useAuthStore = defineStore("auth", () => {
 
   const appStore = useAppStore();
 
-  const clearErrors = () => (errors.value = undefined);
+  const clearErrors = () => appStore.forgetFlashMessages();
 
   const userCallback = (data: object | undefined) => {
     console.log(data);
 
-    localStorage.setItem(LS_KEY, data ? JSON.stringify(data) : "");
+    setLocalStorage(LS_KEY, data || "");
 
     isAuth.value = !!data;
 
@@ -33,59 +33,54 @@ export const useAuthStore = defineStore("auth", () => {
     loaded.value = true;
   };
 
-  const getLocalAuthUser = () => {
-    const data = localStorage.getItem(LS_KEY);
-
-    return data ? JSON.parse(data) : undefined;
-  };
+  const getLocalAuthUser = () => getLocalStorage(LS_KEY) || undefined;
 
   const setAuthUser = async () => {
     clearErrors();
 
-    try {
-      axios
-        .get(`/auth/user`)
-        .then((response: object) => userCallback(response.data.data));
-    } catch (err: any) {
-      errors.value = err.message || "Neznáma chyba";
-    }
+    return axios
+      .get(`/auth/user`)
+      .then((response: object) => userCallback(response.data.data))
+      .catch((exception) => {
+        appStore.setDangerFlashMessage(exception.response.data.message);
+      });
   };
 
-  const login = async () => {
+  const login = async (): Promise<void> => {
     clearErrors();
 
-    try {
-      axios
-        .post(`/auth/login`, {
-          email: email.value,
-          password: password.value,
-        })
-        .then((response: object) => {
-          userCallback(response.data.data);
+    return axios
+      .post(`/auth/login`, {
+        email: email.value,
+        password: password.value,
+      })
+      .then((response: object) => {
+        userCallback(response.data.data);
 
-          appStore.setSuccessFlashMessage("Prihlásený");
+        appStore.setSuccessFlashMessage("Prihlásený");
 
-          router.push({ name: "AdminProductIndex" });
-        });
-    } catch (err: any) {
-      errors.value = err.message || "Neznáma chyba";
-    }
+        router.push({ name: "AdminProductIndex" });
+      })
+      .catch((exception) => {
+        appStore.setDangerFlashMessage(exception.response.data.message);
+      });
   };
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     clearErrors();
 
-    try {
-      axios.post(`/auth/logout`).then((response: object) => {
+    return axios
+      .post(`/auth/logout`)
+      .then((response: object) => {
         userCallback(undefined);
 
         appStore.setSuccessFlashMessage("Odhlásený");
 
         router.push({ name: "Login" });
+      })
+      .catch((exception) => {
+        appStore.setDangerFlashMessage(exception.response.data.message);
       });
-    } catch (err: any) {
-      errors.value = err.message || "Neznáma chyba";
-    }
   };
 
   const register = (): Promise<void> => {
@@ -105,7 +100,7 @@ export const useAuthStore = defineStore("auth", () => {
         router.push({ name: "Login" });
       })
       .catch((exception) => {
-        errors.value = exception.message || "Neznáma chyba";
+        appStore.setDangerFlashMessage(exception.response.data.message);
       });
   };
 
@@ -126,7 +121,7 @@ export const useAuthStore = defineStore("auth", () => {
         router.push({ name: "Login" });
       })
       .catch((exception) => {
-        errors.value = exception.message || "Neznáma chyba";
+        appStore.setDangerFlashMessage(exception.response.data.message);
       });
   };
 
@@ -137,6 +132,7 @@ export const useAuthStore = defineStore("auth", () => {
       .post(`/auth/reset-password/new`, {
         password: password.value,
         password_confirmation: password_confirmation.value,
+        token: getQueryParam(location.href, "token"),
       })
       .then((response: object) => {
         userCallback(undefined);
@@ -146,7 +142,7 @@ export const useAuthStore = defineStore("auth", () => {
         router.push({ name: "Login" });
       })
       .catch((exception) => {
-        errors.value = exception.message || "Neznáma chyba";
+        appStore.setDangerFlashMessage(exception.response.data.message);
       });
   };
 
