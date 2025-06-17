@@ -2,6 +2,10 @@ const getFormFieldValue = (input: Element) => {
   if (input.type === "checkbox") {
     return input.checked;
   }
+console.log(input.type,input.files)
+  if(input.type ==='file'){
+      return input.files[0]
+  }
 
   return input.value;
 };

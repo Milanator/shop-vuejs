@@ -16,7 +16,9 @@ onMounted(() => {
 const onSubmit = (event: Event) => {
   event.preventDefault();
 
-  adminProductStore.modifyProduct(route.params.id);
+  adminProductStore.modifyProduct(route.params.id, {
+    "Content-Type": "multipart/form-data",
+  });
 };
 </script>
 <template>
@@ -53,15 +55,17 @@ const onSubmit = (event: Event) => {
     </div>
 
     <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="imageUrl">
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        for="image"
+      >
         Obrázok URL
       </label>
       <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id="imageUrl"
-        type="text"
-        name="imageUrl"
-        v-model="shopProductStore.product.imageUrl"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        name="image"
+        id="image"
+        type="file"
       />
     </div>
 

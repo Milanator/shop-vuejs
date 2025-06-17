@@ -18,7 +18,7 @@ onMounted(() => {
       :to="`/product/${product._id}`"
       class="max-w-sm rounded overflow-hidden shadow-lg"
     >
-      <img class="max-w-full" :src="product.imageUrl" />
+      <img class="max-w-full max-h-36" :src="product.imageUrl" />
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">{{ product.title }}</div>
         <p class="text-gray-700 text-base">{{ product.price }}€</p>

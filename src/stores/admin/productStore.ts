@@ -10,14 +10,17 @@ export const useProductStore = defineStore("admin/product", () => {
 
   const appStore = useAppStore();
 
-  const modifyProduct = async (id: string | undefined = undefined) => {
+  const modifyProduct = async (
+    id: string | undefined = undefined,
+    headers: object = {}
+  ) => {
     errors.value = undefined;
 
     const url = id ? `/product/${id}` : `/product`;
     const method = id ? "PUT" : "POST";
     const data = getFormData("form", id);
-
-    return axios({ url, method, data })
+console.log(data,headers)
+    return axios({ url, method, data, headers })
       .then((response: object) => {
         console.log(response);
 
