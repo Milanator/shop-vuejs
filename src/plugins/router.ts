@@ -3,6 +3,7 @@ import CartFirst from "@/views/shop/cart/First.vue";
 import ProductIndex from "@/views/shop/product/Index.vue";
 import ProductShow from "@/views/shop/product/Show.vue";
 import OrderSuccess from "@/views/shop/order/Success.vue";
+import OrderCancel from "@/views/shop/order/Cancel.vue";
 import OrderIndex from "@/views/shop/order/Index.vue";
 import AdminProductForm from "@/views/admin/product/Form.vue";
 import AdminProductIndex from "@/views/admin/product/Index.vue";
@@ -50,6 +51,11 @@ const routes = [
     path: "/order/success",
     name: "OrderSuccess",
     component: OrderSuccess,
+  },
+    {
+    path: "/order/cancel",
+    name: "OrderCancel",
+    component: OrderCancel,
   },
   {
     path: "/order",

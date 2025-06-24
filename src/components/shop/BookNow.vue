@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { useOrderStore } from "@/stores/shop/orderStore";
+import { usePaymentStore } from "@/stores/shop/paymentStore";
 import { useRouter } from "vue-router";
 
-const orderStore = useOrderStore();
+const paymentStore = usePaymentStore();
 
 const router = useRouter();
 
 const onBookNow = (event: Event) => {
   event.preventDefault();
 
-  orderStore.storeOrder().then(() => {
-    router.push({ name: "OrderSuccess" });
-  });
+  paymentStore.makePayment()
 };
 </script>
 <template>

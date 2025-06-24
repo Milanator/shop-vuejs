@@ -22,22 +22,9 @@ export const useOrderStore = defineStore("shop/order", () => {
     }
   };
 
-  const storeOrder = async () => {
-    errors.value = undefined;
-
-    try {
-      return axios.post(`/order`).then((response: object) => {
-        loaded.value = true;
-      });
-    } catch (err: any) {
-      errors.value = err.message || "Neznáma chyba";
-    }
-  };
-
   return {
     loaded,
     orders,
     setOrders,
-    storeOrder,
   };
 });
