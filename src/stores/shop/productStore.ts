@@ -6,22 +6,22 @@ import type { Product } from "@/types/ProductType";
 export const useProductStore = defineStore("shop/product", () => {
   const product = ref<Product | object>({});
   const products = ref<Product[]>([]);
+  const pagination = ref(undefined);
   const loaded = ref<Boolean>(false);
   const errors = ref<string | undefined>(undefined);
 
-  const setProducts = async () => {
+  const setProducts = async (url: string | undefined) => {
     errors.value = undefined;
 
     try {
-      axios.get("/product").then((response: object) => {
-        products.value = response.data.data;
+      axios.get(url || "/product").then((response: object) => {
+        products.value = response.data.data.items;
+        pagination.value = response.data.data.pagination;
 
         loaded.value = true;
       });
     } catch (err: any) {
       errors.value = err.message || "Neznáma chyba";
-    } finally {
-      loaded.value = false;
     }
   };
 
@@ -43,6 +43,7 @@ export const useProductStore = defineStore("shop/product", () => {
 
   return {
     product,
+    pagination,
     products,
     loaded,
     errors,

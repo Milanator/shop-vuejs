@@ -19,7 +19,7 @@ export const useProductStore = defineStore("admin/product", () => {
     const url = id ? `/product/${id}` : `/product`;
     const method = id ? "PUT" : "POST";
     const data = getFormData("form", id);
-console.log(data,headers)
+
     return axios({ url, method, data, headers })
       .then((response: object) => {
         console.log(response);
