@@ -13,10 +13,10 @@ onMounted(() => {
 <template>
   <div v-if="productStore.loaded" class="grid grid-cols-3 gap-2">
     <router-link
-      v-for="product in productStore.products"
-      :key="product._id"
       :to="`/product/${product._id}`"
       class="max-w-sm rounded overflow-hidden shadow-lg"
+      v-for="product in productStore.products"
+      :key="product._id"
     >
       <img class="max-w-full max-h-36" :src="product.imageUrl" />
       <div class="px-6 py-4">

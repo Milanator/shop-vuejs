@@ -12,7 +12,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="productStore.loaded">
+  <template v-if="productStore.loaded">
     <div class="grid grid-cols-3 gap-2">
       <router-link
         :to="`/product/${product._id}`"
@@ -20,7 +20,7 @@ onMounted(() => {
         v-for="product in productStore.products"
         :key="product._id"
       >
-        <img class="max-w-full max-h-36" :src="product.imageUrl" />
+        <img class="max-w-full" :src="product.imageUrl" />
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2">{{ product.title }}</div>
           <p class="text-gray-700 text-base">{{ product.price }}€</p>
@@ -34,8 +34,7 @@ onMounted(() => {
         </div>
       </router-link>
     </div>
-
     <!-- Pagination -->
     <Pagination />
-  </div>
+  </template>
 </template>
